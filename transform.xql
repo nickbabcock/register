@@ -76,17 +76,19 @@ declare function local:rule-extract($content as node()*) {
            (without the "2" in N02) :)
         let $subject := fn:string-join($rule/PREAMB/SUBJECT//text(), '')
 
+        (: There can be multiple rins (Regulation Identifier Numbers)
+           associated with a rule, see: RIN 1653-AA41 and RIN 1125-AA50 :)
         let $rin := $rule/PREAMB/RIN/text()
         return map {
              'agency': $agency,
              'subject': functx:trim($subject),
              'names': array { local:names($rule//NAME) },
-             'rin': $rin
+             'rin': array { $rin }
         }
 };
 
 map {
-    'date': local:parse-date(replace((//DATE)[1]/text(),',','')),
+    'date': local:parse-date(replace(/FEDREG/DATE[1]/text(),',','')),
     'presidentials': array { local:presidential(//PRESDOCU) },
     'rules': array { local:rule-extract(//RULES/RULE) },
     'proposed-rules': array { local:rule-extract(//PROFULES/PRORULE) },
