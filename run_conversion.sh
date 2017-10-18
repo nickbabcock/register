@@ -28,7 +28,7 @@ set -euo pipefail
 
 convert_file() {
     f="$1"
-    fn=$(basename "$f")
+    fn="$(basename "$f" .xml).csv"
     echo "$(date): '$f' '$fn'"
     "${JAVA_EXC}" -cp saxon/saxon9he.jar net.sf.saxon.Query -s:"$1" -dtd:off -q:"transform.xql" '!method=json' | \
         ./to_csv.py > $TMP_DIR/$fn
