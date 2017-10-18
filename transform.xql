@@ -44,8 +44,8 @@ declare function local:parse-date($date as xs:string) {
 declare function local:names($content as node()*) {
     for $raw in $content
 
-		(: A name element can have an emphasis, so all children text is needed
-		   to be joined. I'm looking at you <E T="04">Marlene H. Dortch,</E> :)
+        (: A name element can have an emphasis, so all children text is needed
+           to be joined. I'm looking at you <E T="04">Marlene H. Dortch,</E> :)
         let $trim := functx:trim(fn:string-join($raw//text(), ''))
 
         (: And all names end with a comma, which we dutifully strip :)
@@ -55,7 +55,7 @@ declare function local:names($content as node()*) {
 
 
 declare function local:presidential($content as node()*) {
-	for $document in $content
+    for $document in $content
         (: Take the first heading to be the title. Also since the heading can
            contain emphasis, we take all nested children text and combine them.
            I'm looking at you <E T="03">Brown</E> v. <E T="03">Board of Education</E> :)
@@ -77,8 +77,8 @@ declare function local:rule-extract($content as node()*) {
         let $subject := fn:string-join($rule/PREAMB/SUBJECT//text(), '')
 
         let $rin := $rule/PREAMB/RIN/text()
-		return map {
-			 'agency': $agency,
+        return map {
+             'agency': $agency,
              'subject': functx:trim($subject),
              'names': array { local:names($rule//NAME) },
              'rin': $rin
