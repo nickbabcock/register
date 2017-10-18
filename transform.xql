@@ -48,8 +48,10 @@ declare function local:names($content as node()*) {
            to be joined. I'm looking at you <E T="04">Marlene H. Dortch,</E> :)
         let $trim := functx:trim(fn:string-join($raw//text(), ''))
 
-        (: And all names end with a comma, which we dutifully strip :)
-        let $name := functx:substring-before-last-match($trim, '[\.,]')
+        (: And all names end with a comma or semi-colon, which we dutifully
+           strip. The one semicolon seen is for a George Aiken for the 2006-09-14
+           publication :)
+        let $name := functx:substring-before-last-match($trim, '[\.;,]')
         return $name
 };
 
