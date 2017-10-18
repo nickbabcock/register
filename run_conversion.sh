@@ -36,6 +36,7 @@ convert_file() {
 
 export -f convert_file
 export TMP_DIR
+export JAVA_EXC
 find data -iname "*.xml" -print0 | xargs -P4 -0 -I{} -n1 bash -c 'convert_file {}'
 echo "$(date): Now combining all files"
 OUT="output-$(date +"%Y.%m.%d").csv"
