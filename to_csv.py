@@ -14,9 +14,10 @@ def presidents(pres):
 def rules(r, name):
     if any(map(lambda s: ';' in s, r['names'])):
         raise Exception("Can't semicolon list")
-    if any(map(lambda s: ';' in s, r['rin'])):
-        raise Exception("Can't semicolon list")
-    return [name, r['agency'], r['subject'], ';'.join(r['names']), ';'.join(r['rin'])]
+
+    # Some rins are written as RIN 1625-AA08; AA00 and need to be split apart
+    rin = ';'.join([i for sl in r['rin'] for i in sl.split('; ')])
+    return [name, r['agency'], r['subject'], ';'.join(r['names']), rin]
 
 data = json.load(sys.stdin)
 dt = data['date']
