@@ -75,10 +75,13 @@ declare function local:rule-extract($content as node()*) {
            Monitoring Requirements" will be broken down into two subjects
            (without the "2" in N02) :)
         let $subject := fn:string-join($rule/PREAMB/SUBJECT//text(), '')
+
+        let $rin := $rule/PREAMB/RIN/text()
 		return map {
 			 'agency': $agency,
              'subject': functx:trim($subject),
-             'names': array { local:names($rule//NAME) }
+             'names': array { local:names($rule//NAME) },
+             'rin': $rin
         }
 };
 
