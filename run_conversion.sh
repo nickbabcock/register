@@ -38,5 +38,6 @@ export -f convert_file
 export TMP_DIR
 find data -iname "*.xml" -print0 | xargs -P4 -0 -I{} -n1 bash -c 'convert_file {}'
 echo "$(date): Now combining all files"
-xsv cat rows $TMP_DIR/* > output.csv
-echo "$(date): Files combined, please see output.csv"
+OUT="output-$(date +"%Y.%m.%d").csv"
+xsv cat rows $TMP_DIR/* > $OUT
+echo "$(date): Files combined, please see $OUT"
