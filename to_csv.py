@@ -1,3 +1,7 @@
+#!/usr/bin/env python3
+# This script ingests json formatted by `transform.xql` and outputs a csv.
+# Execute this script under python3 as the federal register contains unicode
+# data and python 3's csv writer supports unicode data.
 import json
 import csv
 import sys
