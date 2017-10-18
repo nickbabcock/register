@@ -21,6 +21,9 @@ declare function functx:capitalize-first
              substring($arg,2))
  } ;
 
+(: Dates in the register look like "Tuesday, September 5, 2006", which is not
+   the friendliest form for a computer, so we convert it to "2006-09-05", which is
+   a ISO 8601 date formatted string :)
 declare function local:parse-date($date as xs:string) {
     let $pieces := fn:tokenize($date, " ")
     let $map := map {
@@ -38,7 +41,10 @@ declare function local:parse-date($date as xs:string) {
         "December": "12"
     }
     let $month := $map($pieces[2])
-    return fn:concat($pieces[4], "-", $month, "-", $pieces[3])
+
+	(: Add leading zeros to date if needed, so "5" becomes "05" :)
+    let $day := format-number(number($pieces[3]), '00')
+    return fn:concat($pieces[4], "-", $month, "-", $day)
 };
 
 declare function local:names($content as node()*) {
