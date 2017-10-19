@@ -61,6 +61,12 @@ declare function local:names($content as node()*) {
         return $name
 };
 
+declare function local:docket($content as node()?) {
+    (: PRTPAGE can appear right in the middle of a docket, so we must first
+       ignore it by grabbing all children text :)
+    let $norm := fn:string-join($content//text(),'')
+    return fn:tokenize($norm, ' ')[3]
+};
 
 declare function local:presidential($content as node()*) {
     for $document in $content
@@ -68,7 +74,7 @@ declare function local:presidential($content as node()*) {
            contain emphasis, we take all nested children text and combine them.
            I'm looking at you <E T="03">Brown</E> v. <E T="03">Board of Education</E> :)
         let $title := fn:string-join($document//HD[@SOURCE='HED'][1]//text(), '')
-        let $docket := fn:tokenize($document//FRDOC/text(), " ")[3]
+        let $docket := local:docket($document//FRDOC)
 
         return map { 'title': functx:trim($title), 'docket': $docket }
 };
@@ -80,7 +86,7 @@ declare function local:rule-extract($content as node()*) {
         let $ag := functx:trim(fn:string-join($rule/PREAMB/AGENCY[1]//text(), ''))
         let $agency := functx:capitalize-first(fn:lower-case($ag))
 
-        let $docket := fn:tokenize($rule/FRDOC/text(), " ")[3]
+        let $docket := local:docket($rule/FRDOC)
 
         (: Join all, as "Revision to the Near-road NO<E T="52">2</E> Minimum
            Monitoring Requirements" will be broken down into two subjects
