@@ -75,7 +75,7 @@ declare function local:rule-extract($content as node()*) {
     for $rule in $content
         (: The trademarked agency: POSTAL SERVICE<E T="51">TM
            must have the trademark included so we take all text and join it :)
-        let $ag := fn:string-join($rule/PREAMB/AGENCY[1]//text(), '')
+        let $ag := functx:trim(fn:string-join($rule/PREAMB/AGENCY[1]//text(), ''))
         let $agency := functx:capitalize-first(fn:lower-case($ag))
 
 
