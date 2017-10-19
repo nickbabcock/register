@@ -68,7 +68,9 @@ declare function local:presidential($content as node()*) {
            contain emphasis, we take all nested children text and combine them.
            I'm looking at you <E T="03">Brown</E> v. <E T="03">Board of Education</E> :)
         let $title := fn:string-join($document//HD[@SOURCE='HED'][1]//text(), '')
-        return map { 'title': functx:trim($title) }
+        let $docket := fn:tokenize($document//FRDOC/text(), " ")[3]
+
+        return map { 'title': functx:trim($title), 'docket': $docket }
 };
 
 declare function local:rule-extract($content as node()*) {
@@ -78,6 +80,7 @@ declare function local:rule-extract($content as node()*) {
         let $ag := functx:trim(fn:string-join($rule/PREAMB/AGENCY[1]//text(), ''))
         let $agency := functx:capitalize-first(fn:lower-case($ag))
 
+        let $docket := fn:tokenize($rule/FRDOC/text(), " ")[3]
 
         (: Join all, as "Revision to the Near-road NO<E T="52">2</E> Minimum
            Monitoring Requirements" will be broken down into two subjects
@@ -91,7 +94,8 @@ declare function local:rule-extract($content as node()*) {
              'agency': $agency,
              'subject': functx:trim($subject),
              'names': array { local:names($rule//NAME) },
-             'rin': array { $rin }
+             'rin': array { $rin },
+             'docket': $docket
         }
 };
 
