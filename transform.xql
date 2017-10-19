@@ -109,6 +109,6 @@ map {
     'date': local:parse-date(replace(/FEDREG/DATE[1]/text(),',','')),
     'presidentials': array { local:presidential(//PRESDOCU) },
     'rules': array { local:rule-extract(//RULES/RULE) },
-    'proposed-rules': array { local:rule-extract(//PROFULES/PRORULE) },
+    'proposed-rules': array { local:rule-extract(//PRORULES/PRORULE) },
     'notices': array { local:rule-extract(//NOTICES/NOTICE) }
 }
