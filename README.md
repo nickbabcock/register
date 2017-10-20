@@ -4,7 +4,8 @@
 Register](https://www.federalregister.gov/) data into a more digestible format
 with an emphasis on reproducibility for those also interested in the data.
 
-See Releases for the latest csv data. Here are the headers
+See [Releases for the latest csv
+data](https://github.com/nickbabcock/register/releases/latest). Here are the headers
 
 - date: The date the document appeared in the registry
 - type: Presidential / rule / proposed-rule / notice
