@@ -1,4 +1,4 @@
-## Unreleased
+## 2017.10.19
 
 - Trim surrounding whitespace in agency names
 - Add docket (document id) to output
