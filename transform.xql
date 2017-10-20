@@ -79,6 +79,11 @@ declare function local:presidential($content as node()*) {
         return map { 'title': functx:trim($title), 'docket': $docket }
 };
 
+declare function local:fix-subject($content as node()*) {
+    for $subject in $content
+        return functx:trim($subject)
+};
+
 declare function local:rule-extract($content as node()*) {
     for $rule in $content
         (: The trademarked agency: POSTAL SERVICE<E T="51">TM
@@ -90,8 +95,12 @@ declare function local:rule-extract($content as node()*) {
 
         (: Join all, as "Revision to the Near-road NO<E T="52">2</E> Minimum
            Monitoring Requirements" will be broken down into two subjects
-           (without the "2" in N02) :)
-        let $subject := fn:string-join($rule/PREAMB/SUBJECT//text(), '')
+           (without the "2" in N02). Also remove all superscripts (SU) (which
+           cause a line break). `//` is an alias for
+           `descendant-or-self::node()`, so we use that with the xpath 2.0
+           except operator  :)
+        let $subjects := $rule/PREAMB/SUBJECT/(descendant-or-self::node() except SU)/text()
+        let $subject := fn:string-join(local:fix-subject($subjects), '')
 
         (: There can be multiple rins (Regulation Identifier Numbers)
            associated with a rule, see: RIN 1653-AA41 and RIN 1125-AA50 :)
