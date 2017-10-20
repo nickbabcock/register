@@ -32,6 +32,13 @@ convert_file() {
     echo "$(date): '$f' '$fn'"
     "${JAVA_EXC}" -cp saxon/saxon9he.jar net.sf.saxon.Query -s:"$1" -dtd:off -q:"transform.xql" '!method=json' | \
         ./to_csv.py > $TMP_DIR/$fn
+    local status=$?
+    if [[ $status -ne 0 ]]; then
+        echo "$f caused the error"
+
+        # An exit code of 255 will stop xargs
+        exit 255
+    fi
 }
 
 export -f convert_file
