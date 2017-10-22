@@ -114,3 +114,29 @@ df %>% filter(agency %in% top_agencies) %>%
 # All agencies appear to follow the trend of notices >> proprosed-rules and
 # rules except for the department of transportation, which contains the most
 # rules and the least notices. Why this might be is beyond me!
+
+names_df <- df %>% unnest(names)
+
+# Let's see if we can't depict how ephemeral people are (eg. people are
+# promoted, administration changes, etc). So for each month, grab the top
+# names and we'll graph their growth
+nms <- (names_df %>% count(names, month) %>%
+          group_by(month) %>%
+          top_n(1) %>%
+          ungroup() %>%
+          distinct(names))$names
+
+# Find the most prolific people in the top agencies
+names_df %>% filter(names %in% nms) %>%
+  filter(agency %in% top_agencies) %>%
+  count(names, agency, month) %>%
+  ggplot(aes(month, n, color=names)) +
+  geom_line() +
+  scale_x_date(
+    labels = date_format("%Y-%m"),
+    date_breaks = "1 year",
+    expand=c(.01,.01)) +
+  ylim(0, NA) +
+  facet_grid(agency ~ .) +
+  ylab("Documents") +
+  theme(legend.position="bottom", legend.justification = "left")
