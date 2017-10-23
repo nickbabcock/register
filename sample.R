@@ -35,7 +35,8 @@ df %>%
   ylab("Documents") +
   xlab("Month of Publication") +
   ggtitle("Federal Register Documents Published per Month",
-          subtitle = "Broken down by document type")
+          subtitle = "Broken down by document type") +
+  theme(legend.position="bottom", legend.justification = "left")
 
 # All document types appear stable throughout time. Notices, by far, are the
 # most common. Presidential documents are the fewest, and it may be hard to
