@@ -54,7 +54,7 @@ df %>%
   xlab("Month of Publication") +
   ggtitle("Federal Register Presidential Documents Published per Month")
 
-# Wow, the number of presidential documents in the register flutuates a lot!
+# Wow, the number of presidential documents in the register fluctuates a lot!
 # Instead of looking at time linearly, what if there is a pattern grouped by month
 df %>%
   filter(type == 'presidential') %>%
@@ -111,7 +111,7 @@ df %>% filter(agency %in% top_agencies) %>%
   facet_grid(agency ~ .) +
   theme(legend.position="bottom", legend.justification = "left")
 
-# All agencies appear to follow the trend of notices >> proprosed-rules and
+# All agencies appear to follow the trend of notices >> proposed-rules and
 # rules except for the department of transportation, which contains the most
 # rules and the least notices. Why this might be is beyond me!
 
