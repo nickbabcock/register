@@ -8,7 +8,7 @@ trap "rm -rf $TMP_DIR" EXIT
 : ${JAVA_EXC:=java}
 
 require_command () {
-	type "$1" &> /dev/null
+    type "$1" &> /dev/null
     if [[ ! $? -eq 0 ]]; then
         echo "I require $1 to be installed. Aborting"
         exit 1
