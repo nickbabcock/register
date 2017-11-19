@@ -2,7 +2,10 @@
 
 `Register` is a project that attempts to distill the [Federal
 Register](https://www.federalregister.gov/) data into a more digestible format
-with an emphasis on reproducibility for those also interested in the data.
+with an emphasis on reproducibility for those also interested in the data. For
+more details / background, see the introductory blog post: [Back to the
+Register: Distilling the Federal Register for
+All](https://nbsoftsolutions.com/blog/back-to-the-register-distilling-the-federal-register-for-all).
 
 See [Releases for the latest csv
 data](https://github.com/nickbabcock/register/releases/latest). Here are the headers
