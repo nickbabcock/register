@@ -6,7 +6,8 @@ with an emphasis on reproducibility for those also interested in the data. This
 project takes the 7GB of XML data from 2006 to 2016 and condenses it into a
 15MB CSV. For more details / background, see the introductory blog post: [Back
 to the Register: Distilling the Federal Register for
-All](https://nbsoftsolutions.com/blog/back-to-the-register-distilling-the-federal-register-for-all).
+All](https://nbsoftsolutions.com/blog/back-to-the-register-distilling-the-federal-register-for-all)
+(the `sample.R` script is used to generate graphs for that post).
 
 See [Releases for the latest csv
 data](https://github.com/nickbabcock/register/releases/latest). Here are the headers
@@ -33,6 +34,12 @@ date        type    agency                             names               rin  
 2010-08-03  notice  Small business administration      Karen G. Mills                     2010-19068
 2007-09-05  notice  Environmental protection agency    James B. Gulliford                 E7-17542
 ```
+
+## Contributing
+
+Only a subset of fields available in the Federal Register are extracted into
+the CSV. If there is a field missing that you want to see, please open an issue
+or create a pull request.
 
 ## Perquisites
 
