@@ -1,3 +1,9 @@
+## 2019.05.21
+
+- Code refactor to decrease processing time by 15x (from 30 minutes to 2)
+- `setup.sh` will now always grab the latest version of saxon
+- Include 2017 and 2018 federal register data
+
 ## 2017.10.19
 
 - Trim surrounding whitespace in agency names
