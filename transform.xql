@@ -1,5 +1,7 @@
 xquery version "3.1";
+declare namespace output = "http://www.w3.org/2010/xslt-xquery-serialization";
 declare namespace functx = "http://www.functx.com";
+declare option output:item-separator "&#xa;";
 
 declare function functx:trim
   ( $arg as xs:string? )  as xs:string {
@@ -114,10 +116,13 @@ declare function local:rule-extract($content as node()*) {
         }
 };
 
-map {
-    'date': local:parse-date(replace(/FEDREG/DATE[1]/text(),',','')),
-    'presidentials': array { local:presidential(//PRESDOCU) },
-    'rules': array { local:rule-extract(//RULES/RULE) },
-    'proposed-rules': array { local:rule-extract(//PRORULES/PRORULE) },
-    'notices': array { local:rule-extract(//NOTICES/NOTICE) }
-}
+
+for $year in (2005 to 2016)
+for $v in collection('data/FR-' || $year || '.zip')
+return serialize(map {
+    'date': local:parse-date(replace($v/FEDREG/DATE[1]/text(),',','')),
+    'presidentials': array { local:presidential($v//PRESDOCU) },
+    'rules': array { local:rule-extract($v//RULES/RULE) },
+    'proposed-rules': array { local:rule-extract($v//PRORULES/PRORULE) },
+    'notices': array { local:rule-extract($v//NOTICES/NOTICE) }
+}, map { 'method': 'json' })

@@ -9,11 +9,9 @@ rm saxon9he.zip
 
 # Store all the register data under the 'data' directory
 mkdir -p data
+cd data
 for i in {2005..2016}; do
-    if [[ ! -e FR-$i.zip ]]; then
+    if [[ ! -e "FR-$i.zip" ]]; then
         curl -O -L "https://www.gpo.gov/fdsys/bulkdata/FR/$i/FR-$i.zip"
     fi;
-    unzip -d data FR-$i.zip
 done;
-
-

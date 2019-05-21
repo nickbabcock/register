@@ -4,7 +4,7 @@
 Register](https://www.federalregister.gov/) data into a more digestible format
 with an emphasis on reproducibility for those also interested in the data. This
 project takes the 7GB of XML data from 2006 to 2016 and condenses it into a
-15MB CSV. For more details / background, see the introductory blog post: [Back
+70MB CSV. For more details / background, see the introductory blog post: [Back
 to the Register: Distilling the Federal Register for
 All](https://nbsoftsolutions.com/blog/back-to-the-register-distilling-the-federal-register-for-all)
 (the `sample.R` script is used to generate graphs for that post).
@@ -46,16 +46,13 @@ or create a pull request.
 If you're interested in reproducing or modifying the resulting data, here is what you need to know:
 
 - You'll want a linux machine to execute the bash scripts to make your life easier
-- Java, python3, and [xsv](https://github.com/BurntSushi/xsv) installed
-- Patience, as the conversion process takes about 30 minutes
+- Java and python3
 
 After the above are installed, run the below scripts, which will do the following:
 
 - `setup.sh`:
   - Download the java library for XQuery files into a `saxon` directory
-  - Download the Federal Register data and unzips it into a `data` directory
+  - Download the Federal Register data into the `data` directory
 - `run_conversion.sh`
-  - For each Federal Register file:
-    - Run the XQuery transformation (`transform.xql`), which outputs JSON
-    - Pipe the JSON into the python script (`to_csv.py`), which outputs a CSV file
-  - Combine all the CSV files into a single timestamped output using `xsv`
+  - Run the XQuery transformation (`transform.xql`), which outputs JSON lines
+  - Pipe the JSON lines into the python script (`to_csv.py`), which outputs a CSV file

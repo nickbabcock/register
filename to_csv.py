@@ -5,6 +5,7 @@
 import json
 import csv
 import sys
+import fileinput
 
 # Turn presidents json into csv
 def presidents(pres):
@@ -19,11 +20,12 @@ def rules(r, name):
     rin = ';'.join([i for sl in r['rin'] for i in sl.split('; ')])
     return [name, r['agency'], r['subject'], ';'.join(r['names']), rin, r['docket']]
 
-data = json.load(sys.stdin)
-dt = data['date']
 writer = csv.writer(sys.stdout)
 writer.writerow(['date', 'type', 'agency', 'subject', 'names', 'rin', 'docket'])
-writer.writerows(map(lambda p: [dt] + presidents(p), data['presidentials']))
-writer.writerows(map(lambda r: [dt] + rules(r, "rule"), data['rules']))
-writer.writerows(map(lambda r: [dt] + rules(r, "proposed-rule"), data['proposed-rules']))
-writer.writerows(map(lambda r: [dt] + rules(r, "notice"), data['notices']))
+for line in fileinput.input():
+    data = json.loads(line)
+    dt = data['date']
+    writer.writerows(map(lambda p: [dt] + presidents(p), data['presidentials']))
+    writer.writerows(map(lambda r: [dt] + rules(r, "rule"), data['rules']))
+    writer.writerows(map(lambda r: [dt] + rules(r, "proposed-rule"), data['proposed-rules']))
+    writer.writerows(map(lambda r: [dt] + rules(r, "notice"), data['notices']))
