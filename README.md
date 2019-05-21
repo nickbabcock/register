@@ -3,7 +3,7 @@
 `Register` is a project that attempts to distill the [Federal
 Register](https://www.federalregister.gov/) data into a more digestible format
 with an emphasis on reproducibility for those also interested in the data. This
-project takes the 7GB of XML data from 2006 to 2016 and condenses it into a
+project takes the 7GB of XML data from 2005 to 2018 and condenses it into a
 70MB CSV. For more details / background, see the introductory blog post: [Back
 to the Register: Distilling the Federal Register for
 All](https://nbsoftsolutions.com/blog/back-to-the-register-distilling-the-federal-register-for-all)
