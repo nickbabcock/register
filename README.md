@@ -15,6 +15,7 @@ data](https://github.com/nickbabcock/register/releases/latest). Here are the hea
 - date: The date the document appeared in the registry
 - type: Presidential / rule / proposed-rule / notice
 - agency: What agency issued this document (eg. Department of transportation)
+- sub agency: What sub agency issued the document. For instance, while the agency may be "Health and human services", the sub agency may be "Food and drug administration"
 - subject: What is the subject / title of this document
 - names: List of names associated with the document (semi-colon delimited)
 - rin: List Regulation Identifier Numbers associated with the document (semi-colon delimited)

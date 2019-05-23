@@ -93,6 +93,9 @@ declare function local:rule-extract($content as node()*) {
         let $ag := functx:trim(fn:string-join($rule/PREAMB/AGENCY[1]//text(), ''))
         let $agency := functx:capitalize-first(fn:lower-case($ag))
 
+        let $sag := functx:trim(fn:string-join($rule/PREAMB/SUBAGY[1]//text(), ''))
+        let $sub_agency := functx:capitalize-first(fn:lower-case($sag))
+
         let $docket := local:docket($rule/FRDOC)
 
         (: Join all, as "Revision to the Near-road NO<E T="52">2</E> Minimum
@@ -109,6 +112,7 @@ declare function local:rule-extract($content as node()*) {
         let $rin := $rule/PREAMB/RIN/text()
         return map {
              'agency': $agency,
+             'sub_agency': $sub_agency,
              'subject': functx:trim($subject),
              'names': array { local:names($rule//NAME) },
              'rin': array { $rin },
