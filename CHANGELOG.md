@@ -1,3 +1,7 @@
+## 2019.05.23
+
+- Include sub agency column in csv output
+
 ## 2019.05.21
 
 - Code refactor to decrease processing time by 15x (from 30 minutes to 2)
