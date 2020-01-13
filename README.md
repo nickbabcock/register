@@ -36,18 +36,28 @@ date        type    agency                             names               rin  
 2007-09-05  notice  Environmental protection agency    James B. Gulliford                 E7-17542
 ```
 
-## Contributing
+## Generating the data
 
-Only a subset of fields available in the Federal Register are extracted into
-the CSV. If there is a field missing that you want to see, please open an issue
-or create a pull request.
+There are two ways to download, parse, and generate the data you see above: [docker](https://www.docker.com/products/container-runtime) (easiest) or by installing the prerequisites (still not that bad)
 
-## Perquisites
+### Docker
 
-If you're interested in reproducing or modifying the resulting data, here is what you need to know:
+Assuming docker is installed
 
-- You'll want a linux machine to execute the bash scripts to make your life easier
-- Java and python3
+```bash
+docker build -t nickbabcock/register .
+docker run -v "$(pwd)/data":/register/data --rm -ti nickbabcock/register
+```
+
+The csv data will be in the data directory
+
+### Prerequisites
+
+If not interested in the docker solution, you'll need:
+
+- bash shell (linux machine -- potentially mac-os)
+- Java
+- python3
 
 After the above are installed, run the below scripts, which will do the following:
 
@@ -57,3 +67,9 @@ After the above are installed, run the below scripts, which will do the followin
 - `run_conversion.sh`
   - Run the XQuery transformation (`transform.xql`), which outputs JSON lines
   - Pipe the JSON lines into the python script (`to_csv.py`), which outputs a CSV file
+
+## Contributing
+
+Only a subset of fields available in the Federal Register are extracted into
+the CSV. If there is a field missing that you want to see, please open an issue
+or create a pull request.
