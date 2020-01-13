@@ -1,0 +1,6 @@
+# Ignore everything except for a few files
+**
+!setup.sh
+!to_csv.py
+!transform.xql
+!run_conversion.sh
