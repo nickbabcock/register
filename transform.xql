@@ -121,7 +121,7 @@ declare function local:rule-extract($content as node()*) {
 };
 
 
-for $year in (2005 to 2018)
+for $year in (2005 to year-from-date(current-date()))
 for $v in collection('data/FR-' || $year || '.zip')
 return serialize(map {
     'date': local:parse-date(replace($v/FEDREG/DATE[1]/text(),',','')),
