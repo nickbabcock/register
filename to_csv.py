@@ -6,6 +6,7 @@ import json
 import csv
 import sys
 import fileinput
+import datetime
 
 # Turn presidents json into csv
 def presidents(pres):
@@ -20,11 +21,18 @@ def rules(r, name):
     rin = ';'.join([i for sl in r['rin'] for i in sl.split('; ')])
     return [name, r['agency'], r['sub_agency'], r['subject'], ';'.join(r['names']), rin, r['docket']]
 
+last_date = datetime.date.min
 writer = csv.writer(sys.stdout)
 writer.writerow(['date', 'type', 'agency', 'sub agency', 'subject', 'names', 'rin', 'docket'])
 for line in fileinput.input():
     data = json.loads(line)
     dt = data['date']
+    processing_date = datetime.datetime.strptime(dt, "%Y-%m-%d")
+    pd = processing_date.date()
+    if pd - last_date > datetime.timedelta(days=30) or pd.month != last_date.month:
+        print("processing {}-{}".format(pd.year, pd.month), file=sys.stderr)
+        last_date = pd
+
     writer.writerows(map(lambda p: [dt] + presidents(p), data['presidentials']))
     writer.writerows(map(lambda r: [dt] + rules(r, "rule"), data['rules']))
     writer.writerows(map(lambda r: [dt] + rules(r, "proposed-rule"), data['proposed-rules']))
